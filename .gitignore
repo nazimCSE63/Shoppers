@@ -1,0 +1,10 @@
+**/.vs
+**/bin
+**/obj
+**/*.user
+**/Logs/*
+*/.jpeg
+*/.JPG
+**/.idea
+
+

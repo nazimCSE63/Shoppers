@@ -1,0 +1,113 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+@section Styles {
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/adminlte/css/adminlte.min.css">
+}
+
+<div class="" style="display:flex;flex-wrap: wrap;">
+<div class="login-box" style="margin-left:170px;margin-top:30px;margin-bottom:20px;">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a asp-area="" asp-controller="Account" asp-action="Login" class="h1"><b>Login</b></a>
+    </div>
+    <div class="card-body">
+ 
+
+       <form id="account" method="post" asp-action="Login" asp-controller="Account" asp-area="">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           <div class="input-group mb-3">
+           <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email"/>
+            <span asp-validation-for="Email" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+       @* <a href="#">I forgot my password</a>*@
+      </p>
+      <p class="mb-0">
+        <a asp-area="" asp-controller="Account" asp-action="Register" class="text-center">Register a new membership</a>
+      </p>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+
+        <div class="col-md-6 col-md-offset-2" style="margin-top:30px;margin-left:30px;">
+        <section>
+            <h3>Use another service to log in.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-area="Identity" asp-page="/Account/ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+ </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <!-- jQuery -->
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte/js/adminlte.min.js"></script>
+}

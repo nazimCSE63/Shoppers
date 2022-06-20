@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Order List";
+    ViewData["PageNav"] = "Orders";
+}
+@section Styles
+{
+<link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">DataTable with minimal features &amp; hover style</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6"></div>
+                            <div class="col-sm-12 col-md-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="order-datatable" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr>
+                                            <th>OrderId</th>
+                                            <th>CustomerId</th>
+                                            <th>CustomerName</th>
+                                            <th>ProductId</th>
+                                            <th>ProductName</th>
+                                            <th>Status</th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>OrderId</th>
+                                            <th>CustomerId</th>
+                                            <th>CustomerName</th>
+                                            <th>ProductId</th>
+                                            <th>ProductName</th>
+                                            <th>Status</th>
+                                            <th style="width:20%">Action</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <partial name="_DeletePopUpPartial" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</div>
+@section Scripts
+{
+<script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(function () {
+            $('#order-datatable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/admin/order/getorders",
+                },
+                 "columnDefs": [
+                    {
+                        "orderable": false,
+                        "targets": 6,
+                        "render": function (data, type, row) {
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/order/edit/${data}'" value='${data}'>
+                              
+                                        Confirm
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </button>`;
+                        }
+                    }
+                ]
+            });
+               $('#order-datatable').on('click', '.show-bs-modal', function (event) {
+                var id = $(this).data("id");
+                var modal = $("#modal-default");
+                modal.find('.modal-body p').text('Are you sure you want to delete this record?');
+                $("#deleteId").val(id);
+                $("#deleteForm").attr("action", "/admin/order/delete");
+                modal.modal('show');
+            });
+             $("#deleteButton").click(function () {
+                $("#deleteForm").submit();
+            });
+        });
+</script>
+}

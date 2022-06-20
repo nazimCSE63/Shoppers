@@ -1,0 +1,51 @@
+﻿@model StoreEditModel
+@{
+    ViewData["Title"] = "Edit Store";
+    ViewData["PageNav"] = "Edit Store";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Edit Store</h3>
+    </div>
+
+    <form role="form" asp-controller="store" asp-action="edit" method="POST" enctype="multipart/form-data" asp-antiforgery="true">
+        <input asp-for="Id" type="hidden"/>
+        <div id="form" class="card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input type="text" class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Banner">Banner</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" asp-for="BannerFile">
+                        <label class="custom-file-label" asp-for="Banner">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Logo">Logo</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" asp-for="LogoFile">
+                        <label class="custom-file-label" asp-for="Logo">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

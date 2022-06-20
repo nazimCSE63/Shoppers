@@ -1,0 +1,63 @@
+﻿@model SuperAdminLoginModel
+@{
+    ViewData["Title"] = "Sign In Yourself";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="container-fluid">
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-6">
+     <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">Super Admin</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="loginForm" method="post" asp-action="Login" asp-controller="Account" asp-area="SuperAdmin" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="form-group">
+            <label asp-for="Email">Email address</label>
+            <input asp-for="Email" type="email" class="form-control" id="Email" placeholder="Enter email" autocomplete="username" aria-required="true">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password" autocomplete="current-password" aria-required="true">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            
+            <div class="form-check">
+                <input  type="checkbox" asp-for="RememberMe" class="form-check-input" id="RememberMe"/>
+                <label class="form-check-label" asp-for="RememberMe">  
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                </label>
+            </div>   
+            
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+         <div class="card-body">
+            <p>
+                <a id="forgot-password" asp-action="ForgotPassword" asp-controller="Account" asp-area="SuperAdmin">Forgot your password?</a>
+            </p>
+            @*<p>
+                <a id="resend-confirmation" asp-action="ResendEmailConfirmation" asp-controller="Account" asp-area="SuperAdmin">Resend email confirmation</a>
+            </p>*@
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
